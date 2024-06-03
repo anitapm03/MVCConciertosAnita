@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MVCConciertosAnita.Models.Evento>
+
+@{
+    ViewData["Title"] = "Index";
+    List<CategoriaEvento> categorias = ViewData["CATEGORIAS"] as List<CategoriaEvento>;
+    string UrlBucket =
+        configuration.GetValue<string>("AWS:S3BucketUrl");
+}
+
+<h1>Index</h1>
+
+<form method="post">
+    <label>Categorías</label>
+    <select name="idcategoria">
+        @foreach (CategoriaEvento cat in categorias)
+        {
+            <option value="@cat.IdCategoria">@cat.Categoria</option>
+        }
+    </select>
+    <br />
+    <button class="btn btn-success">Filtrar!</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artista)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artista)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCategoria)
+            </td>
+            <td>
+                <img src="@UrlBucket@item.Imagen" style="width:100px;height:100px;" />
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,12 +1,20 @@
+using MVCConciertosAnita.Helpers;
+using MVCConciertosAnita.Models;
 using MVCConciertosAnita.Services;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<ServiceEventos>();
+string jsonSecrets = await
+    HelperSecretManager.GetSecretsAsync();
+KeysModel keysModel =
+    JsonConvert.DeserializeObject<KeysModel>(jsonSecrets);
+builder.Services.AddSingleton<KeysModel>(x => keysModel);
 
+builder.Services.AddTransient<ServiceEventos>();
 
 var app = builder.Build();
 

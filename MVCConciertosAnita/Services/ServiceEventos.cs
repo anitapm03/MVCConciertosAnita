@@ -8,10 +8,9 @@ namespace MVCConciertosAnita.Services
         private string UrlApi;
         private MediaTypeWithQualityHeaderValue header;
 
-        public ServiceEventos(IConfiguration configuration)
+        public ServiceEventos(KeysModel keys)
         {
-            this.UrlApi = configuration.GetValue<string>
-                ("ApiUrls:ApiConciertos");
+            this.UrlApi = keys.ApiEventos;
             this.header = new MediaTypeWithQualityHeaderValue
                 ("application/json");
         }

@@ -3,8 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     List<CategoriaEvento> categorias = ViewData["CATEGORIAS"] as List<CategoriaEvento>;
-    string UrlBucket =
-        configuration.GetValue<string>("AWS:S3BucketUrl");
+    string UrlBucket = keysModel.BucketUrl;
 }
 
 <h1>Index</h1>
